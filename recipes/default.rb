@@ -17,6 +17,9 @@ end
 
 
 # download data
+
+directory mphm_dir
+
 node.data.mphmrange.each { |id|
 
   url = "http://api.metagenomics.anl.gov/1/download/mgm#{id}.3"
