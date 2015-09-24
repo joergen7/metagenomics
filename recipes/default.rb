@@ -22,10 +22,6 @@ directory mphm_dir
 
 node.data.mphmrange.each { |id|
 	
-  if id == 4459690 then
-    next
-  end
-
   url = "http://api.metagenomics.anl.gov/1/download/mgm#{id}.3"
   
   remote_file "#{mphm_dir}/#{File.basename( url )}" do
