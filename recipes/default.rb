@@ -4,6 +4,8 @@
 #
 # Copyright (c) 2015 Jörgen Brandt, All Rights Reserved.
 
+mphm_dir = "#{node.dir.data}/mphm"
+
 
 directory node.dir.wf
 directory node.dir.data
@@ -13,3 +15,14 @@ template "#{node.dir.wf}/metagenomics.cf" do
   source "metagenomics.cf.erb"
 end
 
+
+# download data
+node.data.mphmrange.each { |id|
+
+  url = "http://api.metagenomics.anl.gov/1/download/mgm#{id}.3"
+  
+  remote_file "#{mphm_dir}/#{File.basename( url )}" do
+    action :create_if_missing
+    source url
+  end
+}
