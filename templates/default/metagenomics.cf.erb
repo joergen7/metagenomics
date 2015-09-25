@@ -1,1 +1,19 @@
-'hello world';
+deftask get_jsonfiles( <files> : )in python *{
+files=map( str, range( 4457768, 4459689 )+range( 4459691, 4459735 ) )
+files=map( lambda id: "mphm/"+id+".3", files )
+}*
+
+deftask cat( out( File ) : <files( File )> )in bash *{
+  cat ${files[@]} > $out
+}*
+
+deftask append_hello( out( File ) : file( File ) )in bash *{
+  cat $file > $out
+  echo "Hello" >> $out
+}*
+
+files = get_jsonfiles();
+
+out = append_hello( file: cat( files: files ) );
+
+out;
