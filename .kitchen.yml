@@ -14,7 +14,5 @@ suites:
   - name: default
     run_list:
       - recipe[metagenomics::_common]
-      - recipe[chef-bioinf-worker::qiime]
-      - recipe[chef-cuneiform::default]
       - recipe[metagenomics::default]
     attributes:
