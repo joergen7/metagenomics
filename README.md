@@ -38,7 +38,7 @@ You can drop the VM by entering
 
 The Cuneiform workflow can be found in the cookbook under
 
-    cookbooks/mirna/templates/default/metagenomics.cf.erb
+    cookbooks/metagenomics/templates/default/metagenomics.cf.erb
     
 and on the test machine under
 
