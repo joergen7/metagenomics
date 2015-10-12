@@ -1,6 +1,6 @@
 deftask get_jsonfiles( <files> : )in python *{
 files=map( str, range( 4457768, 4459689 )+range( 4459691, 4459735 ) )
-files=map( lambda id: "mphm/"+id+".3", files )
+files=map( lambda id: "mphm/mgm"+id+".3", files )
 }*
 
 deftask cat( out( File ) : <files( File )> )in bash *{
@@ -12,8 +12,18 @@ deftask append_hello( out( File ) : file( File ) )in bash *{
   echo "Hello" >> $out
 }*
 
+deftask pick_closed_reference_otus( biom( File ) tree( File ): file( File ) )in bash *{
+  echo "Start executing pick_closed_reference_otus"
+  pick_closed_reference_otus.py -i $file -o otu -f
+  biom=otu/otu_table.biom
+  tree=*_otus.tree
+}*
+
 files = get_jsonfiles();
 
-out = append_hello( file: cat( files: files ) );
+out = cat( files: files );
+
+pick_closed_reference_otus( file : out );
 
 out;
+
