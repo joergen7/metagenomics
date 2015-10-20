@@ -5,12 +5,12 @@
 # Copyright (c) 2015 Jörgen Brandt, All Rights Reserved.
 
 
-include_recipe "chef-bioinf-worker::qiime"
-include_recipe "chef-cuneiform::default"
-
 
 mphm_dir = "#{node.dir.data}/mphm"
+mphmrange = [*4457768..4459689, *4459691..4459735]
 
+include_recipe "chef-bioinf-worker::qiime"
+include_recipe "chef-cuneiform::default"
 
 directory node.dir.wf
 directory node.dir.data
@@ -26,11 +26,11 @@ end
 
 directory mphm_dir
 
-node.data.mphmrange.each { |id|
+mphmrange.each { |id|
 	
-  url = "http://api.metagenomics.anl.gov/1/download/mgm#{id}.3"
+  url = "http://api.metagenomics.anl.gov/1/download/mgm#{id}.3?file=100.1"
   
-  remote_file "#{mphm_dir}/#{File.basename( url )}" do
+  remote_file "#{mphm_dir}/mgm#{id}.fa" do
     action :create_if_missing
     source url
     retries 1
